@@ -2,6 +2,7 @@
 
 #include "display.h"
 #include "effect.h"
+#include "utils.h"
 
 #define FASTLED_INTERNAL
 #include <FastLED.h>
@@ -22,6 +23,8 @@ CRGB g_LEDs[NUM_LEDS] = {0};
 #include "cylon.h"
 
 NokiaDisplay *display;
+
+Effect *effects[7];
 
 RainbowEffect *rainbow;
 MarqueeEffect *marquee;
@@ -44,13 +47,13 @@ void setup()
   FastLED.setBrightness(brightness);
   FastLED.setMaxPowerInMilliWatts(maxPower);
 
-  rainbow = new RainbowEffect(g_LEDs, NUM_LEDS);
-  marquee = new MarqueeEffect(g_LEDs, NUM_LEDS);
-  twinkle = new TwinkleEffect(g_LEDs, NUM_LEDS);
-  comet = new CometEffect(g_LEDs, NUM_LEDS);
-  bounce = new BounceEffect(g_LEDs, NUM_LEDS, 5, 64, false);
-  kitt = new KnightRiderEffect(g_LEDs, NUM_LEDS);
-  cylon = new CylonEffect(g_LEDs, NUM_LEDS);
+  effects[0] = new RainbowEffect(g_LEDs, NUM_LEDS);
+  effects[1] = new MarqueeEffect(g_LEDs, NUM_LEDS);
+  effects[2] = new TwinkleEffect(g_LEDs, NUM_LEDS);
+  effects[3] = new CometEffect(g_LEDs, NUM_LEDS);
+  effects[4] = new BounceEffect(g_LEDs, NUM_LEDS, 5, 64, false);
+  effects[5] = new KnightRiderEffect(g_LEDs, NUM_LEDS);
+  effects[6] = new CylonEffect(g_LEDs, NUM_LEDS);
 }
 
 int effectTimeLeft(double runTimeSecs, double effectDuration)
@@ -85,30 +88,7 @@ void loop()
   {
     double runTimeSecs = (millis() / 1000.0) - startSecs;
 
-    switch ((int)(runTimeSecs / effectDuration) % 7)
-    {
-    case 0:
-      effect = cylon;
-      break;
-    case 1:
-      effect = kitt;
-      break;
-    case 2:
-      effect = bounce;
-      break;
-    case 3:
-      effect = comet;
-      break;
-    case 4:
-      effect = twinkle;
-      break;
-    case 5:
-      effect = marquee;
-      break;
-    default:
-      effect = rainbow;
-      break;
-    }
+    effect = effects[(int)(runTimeSecs / effectDuration) % ARRAYSIZE(effects)];
 
     if (lastEffect != effect)
     {
