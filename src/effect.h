@@ -12,6 +12,7 @@ protected:
 
 public:
     Effect(CRGB *data, int ledCount, const char *effectName) : leds(data), length(ledCount), name(effectName){};
+    Effect(int ledCount, const char *effectName) : length(ledCount), name(effectName){};
     virtual void draw() = 0;
     const char *getName()
     {

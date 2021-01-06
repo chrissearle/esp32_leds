@@ -11,6 +11,11 @@ extern CRGB colourFraction(CRGB colourIn, float fraction);
 
 extern void drawPixels(float position, float count, CRGB colour);
 
+inline void clearPixels()
+{
+    FastLED.clear();
+}
+
 inline double unixTime()
 {
     timeval tv = {0};

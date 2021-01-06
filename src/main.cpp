@@ -21,10 +21,11 @@ CRGB g_LEDs[NUM_LEDS] = {0};
 #include "bounce.h"
 #include "kr.h"
 #include "cylon.h"
+#include "fracmarquee.h"
 
 NokiaDisplay *display;
 
-Effect *effects[7];
+Effect *effects[8];
 
 uint32_t maxPower = 800;
 uint8_t brightness = 255;
@@ -39,13 +40,16 @@ void setup()
   FastLED.setBrightness(brightness);
   FastLED.setMaxPowerInMilliWatts(maxPower);
 
-  effects[0] = new RainbowEffect(g_LEDs, NUM_LEDS);
-  effects[1] = new MarqueeEffect(g_LEDs, NUM_LEDS);
-  effects[2] = new TwinkleEffect(g_LEDs, NUM_LEDS);
-  effects[3] = new CometEffect(g_LEDs, NUM_LEDS);
-  effects[4] = new BounceEffect(g_LEDs, NUM_LEDS, 5, 64, false);
-  effects[5] = new KnightRiderEffect(g_LEDs, NUM_LEDS);
-  effects[6] = new CylonEffect(g_LEDs, NUM_LEDS);
+  size_t x = 0;
+
+  effects[x++] = new FractionalMarqueeEffect(NUM_LEDS);
+  effects[x++] = new RainbowEffect(g_LEDs, NUM_LEDS);
+  effects[x++] = new MarqueeEffect(g_LEDs, NUM_LEDS);
+  effects[x++] = new TwinkleEffect(g_LEDs, NUM_LEDS);
+  effects[x++] = new CometEffect(g_LEDs, NUM_LEDS);
+  effects[x++] = new BounceEffect(g_LEDs, NUM_LEDS, 5, 64, false);
+  effects[x++] = new KnightRiderEffect(g_LEDs, NUM_LEDS);
+  effects[x++] = new CylonEffect(g_LEDs, NUM_LEDS);
 }
 
 int effectTimeLeft(double runTimeSecs, double effectDuration)

@@ -16,8 +16,7 @@ void TwinkleEffect::draw()
     {
         passCount = 0;
 
-        for (int i = 0; i < length; i++)
-            leds[i] = CRGB::Black;
+        clearPixels();
     }
 
     leds[random(length)] = colours[random(ARRAYSIZE(colours))];
