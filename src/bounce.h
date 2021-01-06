@@ -1,5 +1,4 @@
-#ifndef BOUNCE_H_
-#define BOUNCE_H_
+#pragma once
 
 #include <sys/time.h>
 
@@ -63,5 +62,3 @@ public:
 
     void draw();
 };
-
-#endif // BOUNCE_H_

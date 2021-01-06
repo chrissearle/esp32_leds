@@ -1,5 +1,4 @@
-#ifndef DISPLAY_H_
-#define DISPLAY_H_
+#pragma once
 
 #include <U8g2lib.h>
 #ifdef U8X8_HAVE_HW_SPI
@@ -23,5 +22,3 @@ public:
     void clear();
     void update();
 };
-
-#endif // DISPLAY_H_

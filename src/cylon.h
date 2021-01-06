@@ -1,5 +1,4 @@
-#ifndef CYLON_H_
-#define CYLON_H_
+#pragma once
 
 #define FASTLED_INTERNAL
 #include <FastLED.h>
@@ -15,5 +14,3 @@ public:
     CylonEffect(CRGB *data, int ledCount) : Effect(data, ledCount, "Cylon"){};
     void draw();
 };
-
-#endif // CYLON_H_

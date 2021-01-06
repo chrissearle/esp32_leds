@@ -1,5 +1,4 @@
-#ifndef RAINBOW_H_
-#define RAINBOW_H_
+#pragma once
 
 #define FASTLED_INTERNAL
 #include <FastLED.h>
@@ -17,5 +16,3 @@ public:
     RainbowEffect(CRGB *data, int ledCount) : Effect(data, ledCount, "Rainbow"){};
     void draw();
 };
-
-#endif // RAINBOW_H_

@@ -1,5 +1,4 @@
-#ifndef COMET_H_
-#define COMET_H_
+#pragma once
 
 #define FASTLED_INTERNAL
 #include <FastLED.h>
@@ -21,5 +20,3 @@ public:
     CometEffect(CRGB *data, int ledCount) : Effect(data, ledCount, "Comet"){};
     void draw();
 };
-
-#endif // COMET_H_

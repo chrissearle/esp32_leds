@@ -1,5 +1,4 @@
-#ifndef KR_H_
-#define KR_H_
+#pragma once
 
 #define FASTLED_INTERNAL
 #include <FastLED.h>
@@ -15,5 +14,3 @@ public:
     KnightRiderEffect(CRGB *data, int ledCount) : Effect(data, ledCount, "K.Rider"){};
     void draw();
 };
-
-#endif // KR_H_

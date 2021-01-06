@@ -1,5 +1,4 @@
-#ifndef EFFECT_H_
-#define EFFECT_H_
+#pragma once
 
 #define FASTLED_INTERNAL
 #include <FastLED.h>
@@ -19,5 +18,3 @@ public:
         return name;
     }
 };
-
-#endif // EFFECT_H_

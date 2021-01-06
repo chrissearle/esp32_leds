@@ -1,5 +1,4 @@
-#ifndef TWINKLE_H_
-#define TWINKLE_H_
+#pragma once
 
 #define FASTLED_INTERNAL
 #include <FastLED.h>
@@ -15,5 +14,3 @@ public:
     TwinkleEffect(CRGB *data, int ledCount) : Effect(data, ledCount, "Twinkle"){};
     void draw();
 };
-
-#endif // TWINKLE_H_

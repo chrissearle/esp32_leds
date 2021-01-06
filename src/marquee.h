@@ -1,5 +1,4 @@
-#ifndef MARQUEE_H_
-#define MARQUEE_H_
+#pragma once
 
 #define FASTLED_INTERNAL
 #include <FastLED.h>
@@ -12,5 +11,3 @@ public:
     MarqueeEffect(CRGB *data, int ledCount) : Effect(data, ledCount, "Marquee"){};
     void draw();
 };
-
-#endif // MARQUEE_H_
