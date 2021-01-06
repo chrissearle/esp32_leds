@@ -22,10 +22,11 @@ CRGB g_LEDs[NUM_LEDS] = {0};
 #include "kr.h"
 #include "cylon.h"
 #include "fracmarquee.h"
+#include "fire.h"
 
 NokiaDisplay *display;
 
-Effect *effects[8];
+Effect *effects[12];
 
 uint32_t maxPower = 800;
 uint8_t brightness = 255;
@@ -42,6 +43,10 @@ void setup()
 
   size_t x = 0;
 
+  effects[x++] = new FireEffect(NUM_LEDS, 20, 100, 3, 4, false, false);
+  effects[x++] = new FireEffect(NUM_LEDS, 20, 100, 3, 4, true, false);
+  effects[x++] = new FireEffect(NUM_LEDS, 30, 100, 3, 2, false, true);
+  effects[x++] = new FireEffect(NUM_LEDS, 30, 100, 3, 2, true, true);
   effects[x++] = new FractionalMarqueeEffect(NUM_LEDS);
   effects[x++] = new RainbowEffect(g_LEDs, NUM_LEDS);
   effects[x++] = new MarqueeEffect(g_LEDs, NUM_LEDS);
@@ -75,7 +80,7 @@ void updateScreen(unsigned int fps, const char *effect, int timeToChange)
 
 void loop()
 {
-  double effectDuration = 30.0;
+  double effectDuration = 20.0;
   double startSecs = millis() / 1000.0;
   Effect *lastEffect = nullptr;
   Effect *effect = nullptr;
