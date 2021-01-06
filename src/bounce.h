@@ -1,7 +1,5 @@
 #pragma once
 
-#include <sys/time.h>
-
 #define FASTLED_INTERNAL
 #include <FastLED.h>
 
@@ -34,7 +32,6 @@ private:
     vector<CRGB> colours;
 
     double initialBallSpeed(double height) const;
-    double timeDouble() const;
 
 public:
     BounceEffect(CRGB *data, int ledCount, size_t balls, byte fade, bool mirror)
@@ -53,7 +50,7 @@ public:
         for (size_t i = 0; i < ballCount; i++)
         {
             height[i] = startHeight;
-            clockTimeAtLastBounce[i] = timeDouble();
+            clockTimeAtLastBounce[i] = unixTime();
             dampening[i] = 1.0 - i / pow(ballCount, 2);
             ballSpeed[i] = initialBallSpeed(height[i]);
             colours[i] = ballColours[i % ARRAYSIZE(ballColours)];

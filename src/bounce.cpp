@@ -1,13 +1,6 @@
 #include "bounce.h"
 #include "utils.h"
 
-double BounceEffect::timeDouble() const
-{
-    timeval tv = {0};
-    gettimeofday(&tv, nullptr);
-    return (double)(tv.tv_usec / 1000000.0 + (double)tv.tv_sec);
-}
-
 void BounceEffect::draw()
 {
     for (size_t i = 0; i < length + 1; i++)
@@ -18,14 +11,14 @@ void BounceEffect::draw()
 
     for (size_t i = 0; i < ballCount; i++)
     {
-        double timeSinceLastBounce = (timeDouble() - clockTimeAtLastBounce[i]) / speedFactor;
+        double timeSinceLastBounce = (unixTime() - clockTimeAtLastBounce[i]) / speedFactor;
         height[i] = 0.5 * g * pow(timeSinceLastBounce, 2.0) + ballSpeed[i] * timeSinceLastBounce;
 
         if (height[i] < 0)
         {
             height[i] = 0;
             ballSpeed[i] = dampening[i] * ballSpeed[i];
-            clockTimeAtLastBounce[i] = timeDouble();
+            clockTimeAtLastBounce[i] = unixTime();
 
             if (ballSpeed[i] < 1.0)
             {
