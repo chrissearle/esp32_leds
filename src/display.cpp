@@ -11,7 +11,7 @@ NokiaDisplay::NokiaDisplay()
     screen = new U8G2_PCD8544_84X48_F_4W_SW_SPI(U8G2_R2, SCREEN_CLK, SCREEN_DATA, SCREEN_CS, SCREEN_DC, SCREEN_RESET);
 
     screen->begin();
-    screen->setFont(u8g2_font_6x10_tf);
+    screen->setFont(u8g2_font_5x8_tf);
     lineHeight = screen->getFontAscent() - screen->getFontDescent();
 }
 

@@ -18,6 +18,8 @@ CRGB g_LEDs[NUM_LEDS] = {0};
 #include "twinkle.h"
 #include "comet.h"
 #include "bounce.h"
+#include "kr.h"
+#include "cylon.h"
 
 NokiaDisplay *display;
 
@@ -26,6 +28,11 @@ MarqueeEffect *marquee;
 TwinkleEffect *twinkle;
 CometEffect *comet;
 BounceEffect *bounce;
+KnightRiderEffect *kitt;
+CylonEffect *cylon;
+
+uint32_t maxPower = 800;
+uint8_t brightness = 255;
 
 void setup()
 {
@@ -34,23 +41,16 @@ void setup()
   display = new NokiaDisplay();
 
   FastLED.addLeds<WS2812B, LED_PIN, GRB>(g_LEDs, NUM_LEDS);
-  FastLED.setBrightness(255);
-  FastLED.setMaxPowerInMilliWatts(800);
+  FastLED.setBrightness(brightness);
+  FastLED.setMaxPowerInMilliWatts(maxPower);
 
   rainbow = new RainbowEffect(g_LEDs, NUM_LEDS);
   marquee = new MarqueeEffect(g_LEDs, NUM_LEDS);
   twinkle = new TwinkleEffect(g_LEDs, NUM_LEDS);
   comet = new CometEffect(g_LEDs, NUM_LEDS);
   bounce = new BounceEffect(g_LEDs, NUM_LEDS, 5, 64, false);
-}
-
-double framesPerSecond(double seconds)
-{
-  static double framesPerSecond;
-
-  framesPerSecond = (framesPerSecond * 0.9) + (1.0 / seconds * 0.1);
-
-  return framesPerSecond;
+  kitt = new KnightRiderEffect(g_LEDs, NUM_LEDS);
+  cylon = new CylonEffect(g_LEDs, NUM_LEDS);
 }
 
 int effectTimeLeft(double runTimeSecs, double effectDuration)
@@ -58,51 +58,51 @@ int effectTimeLeft(double runTimeSecs, double effectDuration)
   return (int)(effectDuration - (runTimeSecs - (floor(runTimeSecs / effectDuration) * effectDuration))) + 1;
 }
 
-void updateScreen(double fps, const char *effect, int timeToChange)
+void updateScreen(unsigned int fps, const char *effect, int timeToChange)
 {
-  static unsigned long msLastUpdate = millis();
-
-  if (millis() - msLastUpdate > 250)
+  EVERY_N_MILLISECONDS(250)
   {
     display->clear();
 
-    display->writeDouble(3, 1, "FPS", fps, "");
+    display->writeInt(3, 1, "FPS", fps, "");
     display->writeInt(3, 2, "P", calculate_unscaled_power_mW(g_LEDs, NUM_LEDS), " mW");
-    display->writeLine(3, 3, effect);
-    display->writeInt(3, 4, "Next", timeToChange, "");
+    display->writeDouble(3, 3, "B", calculate_max_brightness_for_power_mW(brightness, maxPower), "");
+    display->writeLine(3, 4, effect);
+    display->writeInt(3, 5, "Next", timeToChange, "");
 
     display->update();
-
-    msLastUpdate = millis();
   }
 }
 
 void loop()
 {
   double effectDuration = 30.0;
-  double fps = 0.0;
   double startSecs = millis() / 1000.0;
   Effect *lastEffect = nullptr;
   Effect *effect = nullptr;
 
   for (;;)
   {
-    double frameStartSecs = millis() / 1000.0;
+    double runTimeSecs = (millis() / 1000.0) - startSecs;
 
-    double runTimeSecs = frameStartSecs - startSecs;
-
-    switch ((int)(runTimeSecs / effectDuration) % 5)
+    switch ((int)(runTimeSecs / effectDuration) % 7)
     {
     case 0:
-      effect = bounce;
+      effect = cylon;
       break;
     case 1:
-      effect = comet;
+      effect = kitt;
       break;
     case 2:
-      effect = twinkle;
+      effect = bounce;
       break;
     case 3:
+      effect = comet;
+      break;
+    case 4:
+      effect = twinkle;
+      break;
+    case 5:
       effect = marquee;
       break;
     default:
@@ -116,13 +116,10 @@ void loop()
       lastEffect = effect;
     }
 
-    updateScreen(fps, effect->getName(), effectTimeLeft(runTimeSecs, effectDuration));
+    updateScreen(FastLED.getFPS(), effect->getName(), effectTimeLeft(runTimeSecs, effectDuration));
 
     effect->draw();
 
     FastLED.show();
-
-    double frameEndSecs = millis() / 1000.0;
-    fps = framesPerSecond(frameEndSecs - frameStartSecs);
   }
 }
