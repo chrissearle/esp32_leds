@@ -1,4 +1,5 @@
 #include "cylon.h"
+#include "utils.h"
 
 void CylonEffect::draw()
 {
@@ -8,6 +9,6 @@ void CylonEffect::draw()
         int position = beatsin16(32, 0, length - width);
         byte hue = beatsin8(96);
         for (int i = position; i < position + width; i++)
-            leds[i] = CHSV(hue, 255, 255);
+            drawPixels(i, 1, CHSV(hue, 255, 255));
     }
 }

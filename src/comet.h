@@ -17,6 +17,6 @@ private:
     double speed = 0.5;
 
 public:
-    CometEffect(CRGB *data, int ledCount) : Effect(data, ledCount, "Comet"){};
+    CometEffect(int ledCount) : Effect(ledCount, "Comet"){};
     void draw();
 };

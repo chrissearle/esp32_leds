@@ -49,9 +49,9 @@ void setup()
   effects[x++] = new FireEffect(NUM_LEDS, 30, 100, 3, 2, true, true);
   effects[x++] = new FractionalMarqueeEffect(NUM_LEDS);
   effects[x++] = new RainbowEffect(g_LEDs, NUM_LEDS);
-  effects[x++] = new MarqueeEffect(g_LEDs, NUM_LEDS);
-  effects[x++] = new TwinkleEffect(g_LEDs, NUM_LEDS);
-  effects[x++] = new CometEffect(g_LEDs, NUM_LEDS);
+  effects[x++] = new MarqueeEffect(NUM_LEDS);
+  effects[x++] = new TwinkleEffect(NUM_LEDS);
+  effects[x++] = new CometEffect(NUM_LEDS);
   effects[x++] = new BounceEffect(g_LEDs, NUM_LEDS, 5, 64, false);
   effects[x++] = new KnightRiderEffect(g_LEDs, NUM_LEDS);
   effects[x++] = new CylonEffect(g_LEDs, NUM_LEDS);

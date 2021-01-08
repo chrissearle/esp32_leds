@@ -19,5 +19,5 @@ void TwinkleEffect::draw()
         clearPixels();
     }
 
-    leds[random(length)] = colours[random(ARRAYSIZE(colours))];
+    drawPixels(random(length), 1, colours[random(ARRAYSIZE(colours))]);
 }

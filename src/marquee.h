@@ -8,6 +8,6 @@
 class MarqueeEffect : public Effect
 {
 public:
-    MarqueeEffect(CRGB *data, int ledCount) : Effect(data, ledCount, "Marquee"){};
+    MarqueeEffect(int ledCount) : Effect(ledCount, "Marquee"){};
     void draw();
 };

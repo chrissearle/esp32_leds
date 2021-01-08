@@ -11,6 +11,6 @@ private:
     int passCount = 0;
 
 public:
-    TwinkleEffect(CRGB *data, int ledCount) : Effect(data, ledCount, "Twinkle"){};
+    TwinkleEffect(int ledCount) : Effect(ledCount, "Twinkle"){};
     void draw();
 };
